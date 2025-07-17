@@ -5,7 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import { Upload, FileText, Link, ArrowRight, CheckCircle } from 'lucide-react';
 
-const InterviewSetup = () => {
+interface InterviewSetupProps {
+  onStartResearch: () => void;
+}
+
+const InterviewSetup = ({ onStartResearch }: InterviewSetupProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const [jobDescription, setJobDescription] = useState('');
@@ -14,6 +18,12 @@ const InterviewSetup = () => {
     const file = event.target.files?.[0];
     if (file) {
       setResumeUploaded(true);
+    }
+  };
+
+  const handleGenerateInterview = () => {
+    if (canProceed) {
+      onStartResearch();
     }
   };
 
@@ -134,7 +144,7 @@ const InterviewSetup = () => {
               size="lg"
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
               disabled={!canProceed}
-              onClick={() => setCurrentStep(2)}
+              onClick={handleGenerateInterview}
             >
               Generate Interview
               <ArrowRight className="w-5 h-5 ml-2" />

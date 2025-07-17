@@ -1,10 +1,13 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, TrendingUp, Calendar, Star, Target, Clock } from 'lucide-react';
 
-const Dashboard = () => {
+interface DashboardProps {
+  onStartNewInterview: () => void;
+}
+
+const Dashboard = ({ onStartNewInterview }: DashboardProps) => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
       {/* Hero Section */}
@@ -15,7 +18,11 @@ const Dashboard = () => {
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           Practice with AI-powered mock interviews tailored to your resume and target job
         </p>
-        <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
+        <Button 
+          size="lg" 
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+          onClick={onStartNewInterview}
+        >
           <Play className="w-6 h-6 mr-2" />
           Start New Mock Interview
         </Button>

@@ -14,6 +14,10 @@ const Index = () => {
     setCurrentView('setup');
   };
 
+  const handleStartResearch = () => {
+    setCurrentView('research');
+  };
+
   const handleResearchComplete = () => {
     setCurrentView('precheck');
   };
@@ -38,8 +42,8 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50">
       <NavigationBar />
       
-      {currentView === 'dashboard' && <Dashboard />}
-      {currentView === 'setup' && <InterviewSetup />}
+      {currentView === 'dashboard' && <Dashboard onStartNewInterview={handleStartNewInterview} />}
+      {currentView === 'setup' && <InterviewSetup onStartResearch={handleStartResearch} />}
       {currentView === 'precheck' && <PreInterviewCheck onStartInterview={handleStartInterview} />}
     </div>
   );
