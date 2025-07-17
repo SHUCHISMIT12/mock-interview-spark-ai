@@ -1,12 +1,46 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import NavigationBar from '@/components/NavigationBar';
+import Dashboard from '@/components/Dashboard';
+import InterviewSetup from '@/components/InterviewSetup';
+import AIResearchPhase from '@/components/AIResearchPhase';
+import PreInterviewCheck from '@/components/PreInterviewCheck';
+import LiveInterview from '@/components/LiveInterview';
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<'dashboard' | 'setup' | 'research' | 'precheck' | 'interview'>('dashboard');
+
+  const handleStartNewInterview = () => {
+    setCurrentView('setup');
+  };
+
+  const handleResearchComplete = () => {
+    setCurrentView('precheck');
+  };
+
+  const handleStartInterview = () => {
+    setCurrentView('interview');
+  };
+
+  const handleEndInterview = () => {
+    setCurrentView('dashboard');
+  };
+
+  if (currentView === 'research') {
+    return <AIResearchPhase onComplete={handleResearchComplete} />;
+  }
+
+  if (currentView === 'interview') {
+    return <LiveInterview onEndInterview={handleEndInterview} />;
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <NavigationBar />
+      
+      {currentView === 'dashboard' && <Dashboard />}
+      {currentView === 'setup' && <InterviewSetup />}
+      {currentView === 'precheck' && <PreInterviewCheck onStartInterview={handleStartInterview} />}
     </div>
   );
 };
